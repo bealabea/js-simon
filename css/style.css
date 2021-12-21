@@ -2,8 +2,28 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.container {
+    padding: 50px 0;
+    margin: 0 auto;
+    text-align: center;
 }
 
 .hide{
     display: none;
+}
+
+#numbers{
+    font-size: 60px;
+    margin: 50px 0;
+    color: darkslategrey;
+}
+
+#output {
+    font-size: 50px;
+    margin: 50px 0;
+    padding: 100px 0;
+    color: #fff;
 }

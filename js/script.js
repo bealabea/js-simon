@@ -4,69 +4,81 @@
 // Dopo che sono stati inseriti i 5 numeri, il software dice quanti e quali dei numeri da indovinare sono stati individuati.
 
 // Creo la funzione per generare dei numeri random all'interno di un range di numeri
-function randomNum(min, max) {
+function getRandom(min, max) {
     return Math.floor(Math.random() * ((max + 1) - min)) + min;
 }
 
-function multipleNum(n, min, max){
+// Funzione per aggiungere i numeri random in un array
+function addNumbersToArray(n, min, max){
 // Creo un array vuoto dove inserire i numeri random generati
-let num = [];
+let randomList = [];
 // Creo numeri random e li aggiungo all'array a condizione di non generare più di 5 numeri
-// Se i numeri NON sono già inclusi nell'array allora li inserisco. (per non creare doppioni)
-while (num.length < n) {
-    let random = randomNum(min, max);
-    if (!num.includes(random)){
-        num.push(random);
+while (randomList.length < n) {
+    let randomNum = getRandom(min, max);
+    // Se i numeri NON sono già inclusi nell'array allora li inserisco. (per non creare doppioni)
+    if (!randomList.includes(randomNum)){
+        randomList.push(randomNum);
     }
 }
-return num;
+return randomList;
 }
 
+// Funzione che aggiunge la classe hide(display:none) all'id e tag selezionati nel documento
 function hide(){
     numbersHtml.className = 'hide';
+    document.getElementsByTagName('h1')[0].className = 'hide';
 }
 
 // Funzione che trasforma le stringhe di un array in numeri
-function transform(userStringList) {
-    let numArray = [];
-    for (let i = 0; i < userStringList.length; i++){
-        numArray.push(parseInt(userStringList[i]));
+function transform(StringList) {
+    let arrayNumberList = [];
+    for (let i = 0; i < StringList.length; i++){
+        arrayNumberList.push(parseInt(StringList[i]));
     }
-    return numArray;
+    return arrayNumberList;
 }
 
+// Funzione che confronta i due array (numeri random e numeri utente) e inserisce in un nuovo array i numeri uguali
 function compareArrays(array1, array2){
-    let arrayUguali = [];
+    let sameNumbers = [];
     for(let i = 0; i < array1.length; i++){
         if(array2.includes(array1[i])){
-            arrayUguali.push(array1[i]);
+            sameNumbers.push(array1[i]);
         }
     }
-    return arrayUguali;
+    return sameNumbers;
 }
 
+// Attribuisco una variabile alla funzione di creazione dell'array di numeri random
+let randomNumbers = addNumbersToArray(5, 1, 50);
 
-let randomNumbers = multipleNum(5, 1, 50);
-
-// Creo la variabile per stampare in HTML
+// Creo la variabile per stampare in HTML i numeri random
 const numbersHtml = document.getElementById('numbers');
+// Creo la variabile per stampare in HTML il risultato ottenuto dall'utente
 const outputHtml = document.getElementById('output');
 // Stampo la lista di numeri random in HTML 
 numbersHtml.innerHTML = randomNumbers;
 
-// Con un timer nascondo la lista dopo 3 secondi
-setTimeout(hide, 3000);
+// con una timing Function nascondo la lista dei numeri random dopo 30 secondi
+setTimeout(hide, 30000);
 
 // con una timing Function faccio apparire un prompt e chiedo all'utente di scrivere i numeri che ha visto
 setTimeout(function(){
     let userAnswer = prompt('inserisci i numeri che hai visto separati da uno spazio')
-    let userNum = userAnswer.split(' ');
-    console.log(userNum);
-    let x = transform(userNum);
-    console.log(x);
-    outputHtml.innerHTML = compareArrays(x, randomNumbers);
-    // outputHtml.innerHTML += `hai indovinato ${arrayUguali} numeri!`
-    // Dopo che sono stati inseriti i 5 numeri, il software dice quanti e quali dei numeri da indovinare sono stati individuati.
-}, 4000);
+    // con la funzione split prendo la risposta (stringa) dell'utente e la inserisco in un array eliminando gli spazi
+    let userNumbers = userAnswer.split(' ');
+    console.log(userNumbers);
+    // attribuisco una variabile alla funzione che trasforma l'array creato con split da stringhe a numeri
+    let userNumbersList = transform(userNumbers);
+    console.log(userNumbersList);
+    // attribuisco una variabile alla funzione di confronto dei due array (user e random)
+    const result = compareArrays(userNumbersList, randomNumbers);
+    outputHtml.innerHTML = `Hai indovinato ${result.length} numeri. <br/> ${result}`;   
+}, 31000);
+
+setTimeout(function(){
+    numbersHtml.classList.remove('hide');
+    outputHtml.style.backgroundColor = 'darkslategrey';
+}, 31000)
 
 
