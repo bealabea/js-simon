@@ -49,6 +49,19 @@ function compareArrays(array1, array2){
     return sameNumbers;
 }
 
+function checkNumbers(array1){
+    let nuovoArray = array1.slice(0, 5);
+
+    while(nuovoArray.length < 5) {
+        const value = parseInt(prompt('Inserisci tutti e 5 i numeri!'));
+        nuovoArray.push(value);
+    }
+
+    return nuovoArray;
+}
+
+let nuovoArray = checkNumbers(userNumberList);
+
 // Attribuisco una variabile alla funzione di creazione dell'array di numeri random
 let randomNumbers = addNumbersToArray(5, 1, 50);
 
