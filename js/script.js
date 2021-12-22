@@ -60,7 +60,7 @@ const outputHtml = document.getElementById('output');
 numbersHtml.innerHTML = randomNumbers;
 
 // con una timing Function nascondo la lista dei numeri random dopo 30 secondi
-setTimeout(hide, 30000);
+setTimeout(hide, 5000);
 
 // con una timing Function faccio apparire un prompt e chiedo all'utente di scrivere i numeri che ha visto
 setTimeout(function(){
@@ -73,12 +73,18 @@ setTimeout(function(){
     console.log(userNumbersList);
     // attribuisco una variabile alla funzione di confronto dei due array (user e random)
     const result = compareArrays(userNumbersList, randomNumbers);
-    outputHtml.innerHTML = `Hai indovinato ${result.length} numeri. <br/> ${result}`;   
-}, 31000);
+    if(result.length === 0){
+        outputHtml.innerHTML = `Peccato, non hai indovinato neanche un numero. <br/> Hai perso!`;   
+    } else if (result.length === 5){
+        outputHtml.innerHTML = `Hai indovinato tutti e ${result.length} i numeri. <br/> Hai vinto!! <br/> ${result}`;
+    } else {
+    outputHtml.innerHTML = `Hai indovinato ${result.length} numeri. <br/> ${result}`;  
+    } 
+}, 5500);
 
 setTimeout(function(){
     numbersHtml.classList.remove('hide');
     outputHtml.style.backgroundColor = 'darkslategrey';
-}, 31000)
+}, 5500)
 
 
