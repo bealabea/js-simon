@@ -60,7 +60,7 @@ function checkNumbers(array1){
     return nuovoArray;
 }
 
-let nuovoArray = checkNumbers(userNumberList);
+
 
 // Attribuisco una variabile alla funzione di creazione dell'array di numeri random
 let randomNumbers = addNumbersToArray(5, 1, 50);
@@ -82,7 +82,9 @@ setTimeout(function(){
     let userNumbers = userAnswer.split(' ');
     console.log(userNumbers);
     // attribuisco una variabile alla funzione che trasforma l'array creato con split da stringhe a numeri
+    // let userNumbersList = transform(userNumbers);
     let userNumbersList = transform(userNumbers);
+    userNumbersList = checkNumbers(userNumberList);
     console.log(userNumbersList);
     // attribuisco una variabile alla funzione di confronto dei due array (user e random)
     const result = compareArrays(userNumbersList, randomNumbers);
