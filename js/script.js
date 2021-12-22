@@ -42,7 +42,7 @@ function transform(StringList) {
 function compareArrays(array1, array2){
     let sameNumbers = [];
     for(let i = 0; i < array1.length; i++){
-        if(array2.includes(array1[i])){
+        if(array2.includes(array1[i])  && !sameNumbers.includes(array1[i])){
             sameNumbers.push(array1[i]);
         }
     }
@@ -53,7 +53,7 @@ function checkNumbers(array1){
     let nuovoArray = array1.slice(0, 5);
 
     while(nuovoArray.length < 5) {
-        const value = parseInt(prompt('Inserisci tutti e 5 i numeri!'));
+        const value = parseInt(prompt('Inserisci un\'altro numero!'));
         nuovoArray.push(value);
     }
 
@@ -69,6 +69,10 @@ let randomNumbers = addNumbersToArray(5, 1, 50);
 const numbersHtml = document.getElementById('numbers');
 // Creo la variabile per stampare in HTML il risultato ottenuto dall'utente
 const outputHtml = document.getElementById('output');
+const button = document.getElementById('button')
+button.addEventListener('click', function(){
+    window.location.reload()
+})
 // Stampo la lista di numeri random in HTML 
 numbersHtml.innerHTML = randomNumbers;
 
@@ -84,22 +88,27 @@ setTimeout(function(){
     // attribuisco una variabile alla funzione che trasforma l'array creato con split da stringhe a numeri
     // let userNumbersList = transform(userNumbers);
     let userNumbersList = transform(userNumbers);
-    userNumbersList = checkNumbers(userNumberList);
+    userNumbersList = checkNumbers(userNumbersList);
     console.log(userNumbersList);
     // attribuisco una variabile alla funzione di confronto dei due array (user e random)
     const result = compareArrays(userNumbersList, randomNumbers);
     if(result.length === 0){
+        outputHtml.style.backgroundColor = 'firebrick';
         outputHtml.innerHTML = `Peccato, non hai indovinato neanche un numero. <br/> Hai perso!`;   
     } else if (result.length === 5){
+        outputHtml.style.backgroundColor = 'lightseagreen';
         outputHtml.innerHTML = `Hai indovinato tutti e ${result.length} i numeri. <br/> Hai vinto!! <br/> ${result}`;
     } else {
-    outputHtml.innerHTML = `Hai indovinato ${result.length} numeri. <br/> ${result}`;  
+        outputHtml.style.backgroundColor = 'darkslategrey';
+        outputHtml.innerHTML = `Hai indovinato ${result.length} numeri. <br/> ${result}`;  
     } 
 }, 5500);
 
 setTimeout(function(){
     numbersHtml.classList.remove('hide');
-    outputHtml.style.backgroundColor = 'darkslategrey';
+    button.classList.remove('hide');
 }, 5500)
+
+
 
 

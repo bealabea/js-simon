@@ -27,3 +27,12 @@
     padding: 100px 0;
     color: #fff;
 }
+
+#button {
+    padding: 10px 20px;
+    border-radius: 50px;
+    border: none;
+    background-color: #333;
+    color: #fff;
+    cursor: pointer;
+}
